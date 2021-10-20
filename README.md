@@ -6,7 +6,7 @@ Flutter project for taxi management purpose
 
 1. Create new .env file in root folder of your project with following:
 
-```env
+```console
 USERNAME=YOUR_USERNAME_HERE
 PASSWORD=YOUR_PASSWORD_HERE
 ```
