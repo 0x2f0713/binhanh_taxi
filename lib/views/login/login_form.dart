@@ -2,6 +2,7 @@ import 'package:binhanh_taxi/blocs/login/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -43,9 +44,9 @@ class _UsernameInput extends StatelessWidget {
       builder: (context, state) {
         context
             .read<LoginBloc>()
-            .add(const LoginUsernameChanged("giamsatlaixe"));
+            .add(LoginUsernameChanged(dotenv.env['USERNAME'] ?? ""));
         return TextFormField(
-          initialValue: "giamsatlaixe",
+          initialValue: dotenv.env['USERNAME'] ?? "",
           key: const Key('loginForm_usernameInput_textField'),
           onChanged: (username) =>
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
@@ -65,9 +66,11 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        context.read<LoginBloc>().add(const LoginPasswordChanged("vugia@123"));
+        context
+            .read<LoginBloc>()
+            .add(LoginPasswordChanged(dotenv.env['PASSWORD'] ?? ""));
         return TextFormField(
-          initialValue: "vugia@123",
+          initialValue: dotenv.env['PASSWORD'] ?? "",
           key: const Key('loginForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
