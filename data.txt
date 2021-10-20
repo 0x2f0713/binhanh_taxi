@@ -1,0 +1,72 @@
+VehicleOnlineManager.prototype.mapJsonVehicleToVehicleOnlineInit = function (jsonVehicle) {
+    var vehicleOnline = new VehicleOnlineModel();
+    vehicleOnline.VehicleID = jsonVehicle["1"];                   // ID xe => p1
+    vehicleOnline.VehicleTime = jsonVehicle["2"];                 // Thời gian xe trả về 
+    vehicleOnline.GpsTime = jsonVehicle["3"];                     // Thời gian GPS
+    vehicleOnline.Longitude = jsonVehicle["4"];                   // Kinh độ
+    vehicleOnline.Latitude = jsonVehicle["5"];                    // Vĩ độ
+    vehicleOnline.VelocityGPS = jsonVehicle["6"];                 // Vận tốc GPS
+    vehicleOnline.VelocityMechanical = jsonVehicle["7"];          // Vận tốc cơ
+    vehicleOnline.VehicleDirection = jsonVehicle["8"];            // Hướng
+    vehicleOnline.VehicleState = jsonVehicle["9"];                // Trạng thái xe
+    vehicleOnline.OtherState = jsonVehicle["10"];                 // Trạng thái khác
+    vehicleOnline.MinuteOfManchineOnWhenStop = jsonVehicle["11"]; // Số phút dừng đỗ bật máy
+    vehicleOnline.HighEmptyKm = jsonVehicle["12"];                // Cảnh báo km rỗng cao
+    vehicleOnline.LimitMinutes = jsonVehicle["13"];               // Giới hạn số phút dừng đỗ
+    vehicleOnline.KmEmpty = jsonVehicle["14"];                    // Km rỗng trong ngày/ ca
+    vehicleOnline.Stopped = jsonVehicle["15"];                    // Số phút dừng đỗ
+    vehicleOnline.IsLocked = jsonVehicle["16"];                   // Có bị khóa không? 
+    vehicleOnline.LevelID = jsonVehicle["17"] == null ? 0 : jsonVehicle["17"];
+    vehicleOnline.CurrentEmptyKM = jsonVehicle["18"];                                                 //KM rỗng hiện thời
+    vehicleOnline.IsLostVehicleInfo = jsonVehicle["19"] == null ? true : jsonVehicle["19"];           // Xe thieu thong tin 
+    vehicleOnline.VehiclePlate = jsonVehicle["40"];                                                   // Biển số xe
+    vehicleOnline.PrivateCode = jsonVehicle["41"];                                                    // Số hiệu xe
+    vehicleOnline.Seat = jsonVehicle["42"];                                                           // Số chỗ
+    vehicleOnline.VehicleGroupID = jsonVehicle["43"];                                                 // ID nhóm xe
+    vehicleOnline.Icon = jsonVehicle["44"];                                                           // Đường dẫn Icon
+    vehicleOnline.VehicleTypeID = jsonVehicle["45"];                                                  // Gán ID loại xe
+    // ChargeFee
+    vehicleOnline.OutOfFeeDate = jsonVehicle["51"];                                                     // Ngày gia hạn
+    vehicleOnline.MaturityDate = jsonVehicle["54"];                                                     // Ngày hết hạn
+    vehicleOnline.IsLockMeter = jsonVehicle["56"];                                                      //Khóa đồng hồ
+    return vehicleOnline;
+};
+
+/* 
+* $Author$		trungtq
+* Map thuộc tính trả về dạng json từ server sang dạng client có thể hiểu và dễ code
+*/
+VehicleOnlineManager.prototype.mapJsonVehicleToVehicleOnlineRefresh = function (obj, jsonVehicle) {
+    try {
+        obj.VehicleTime = jsonVehicle["2"];                       // Thời gian xe trả về 
+        obj.GpsTime = jsonVehicle["3"];                           // Thời gian GPS
+        obj.Longitude = jsonVehicle["4"];                         // Kinh độ
+        obj.Latitude = jsonVehicle["5"];                          // Vĩ độ
+        obj.VelocityGPS = jsonVehicle["6"];                       // Vận tốc GPS
+        obj.VelocityMechanical = jsonVehicle["7"];                // Vận tốc cơ
+        obj.VehicleDirection = jsonVehicle["8"];                  // Hướng
+        obj.VehicleState = jsonVehicle["9"];                      // Trạng thái xe
+        obj.OtherState = jsonVehicle["10"];                       // Trạng thái khác
+        obj.MinuteOfManchineOnWhenStop = jsonVehicle["11"];       // Số phút dừng đỗ bật máy
+        obj.CurrentEmptyKM = jsonVehicle["18"];                   // KM rỗng hiện thời
+        obj.KmEmpty = jsonVehicle["14"];                          // Km rỗng trong ngày/ ca
+        obj.Stopped = jsonVehicle["15"];                          // Số phút dừng đỗ
+        obj.ttk = jsonVehicle["20"];                              // Đang dùng check có cảnh báo SOS ko.
+        obj.tgsos = jsonVehicle["21"];                            // Thời gian cảnh báo SOS
+        obj.kdsos = jsonVehicle["22"];                            // Kinh độ SOS
+        obj.vdsos = jsonVehicle["23"];                            // Vĩ độ SOS
+
+        //obj.PrivateCode = jsonVehicle["25"];
+        //obj.Icon = "";
+        //obj.Icon = this.setIconWithNoDir(obj);                   
+        // ChargeFee
+        obj.OutOfFeeDate = jsonVehicle["51"];                     // Ngày gia hạn
+        obj.MaturityDate = jsonVehicle["54"];                     // Ngày hết hạn
+        obj.IsLockMeter = jsonVehicle["56"] == null ? obj.IsLockMeter : jsonVehicle["56"];
+        return obj;
+    }
+    catch (err) {
+        console.log("VehicleOnlineManager.prototype.mapJsonVehicleToVehicleOnlineRefresh: " + err);
+    }
+    return null;
+};
